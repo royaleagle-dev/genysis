@@ -1,0 +1,59 @@
+{% extends 'quiz/base.html' %}
+
+{% block content %}
+<div align = "center">
+    <h4>{{ category.name }}</h4>
+</div>
+
+<div class = "row">
+    <div class = "offset-md-2 col-md-8">
+        {% for question in questions %}
+        <div class = "question_list mt-4" id = "qrow-{{ question.id }}">
+            <p class = "bg-warning p-2">Question</p>
+            <p>{{ question.text }}</p>
+            <hr>
+            <small class = "text-danger" style="font-style:italic">Options</small>
+            {% for answer in question.answer_set.all %}
+            <div class = "mt-4">
+                <div class = "form-group">
+                    <input type = "radio" class = "">
+                    <label>{{ answer.text }}</label>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+        <div align = "right">
+            <button class = "btn btn-primary" id = "nextBtn">Next</button>    
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block javascript %}
+<script>
+    function clearQuestions(object){
+        object.forEach(element => element.style.display = 'none');
+    }
+
+    question_list = document.querySelectorAll('.question_list')
+    clearQuestions(question_list)
+    questions = question_list.length
+    question_list[0].style.display = 'block'
+    question_index = 0
+
+    function nextBtn(){
+        console.log('reached here')
+        clearQuestions(question_list)
+        question = question_index+1
+        question_list[question].style.display = 'block'
+        console.log(question_list[question])
+    }
+
+
+    $("#nextBtn").click(function(){
+        nextBtn()
+    })
+</script>
+{% endblock %}

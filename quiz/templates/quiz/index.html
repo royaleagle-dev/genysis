@@ -1,0 +1,16 @@
+{% extends 'quiz/base.html' %}
+
+{% block content %}
+<div>
+    <div class = "row">
+        <div class = "offset-md-4 col-md-4" align = "center">
+            <h3>Choose A Category</h3>
+            <div class = "d-grid gap-2">
+                {% for category in categories %}
+                <a href="{% url 'quiz:category' category.id %}" class = "btn btn-primary">{{ category.name }}<a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
